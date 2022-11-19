@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-register',
@@ -9,7 +10,7 @@ import {AuthService} from "../auth.service";
 export class RegisterComponent implements OnInit {
 
   registerUserData : any = {};
-  constructor(private authService: AuthService ) { }
+  constructor(private authService: AuthService, private router: Router ) { }
 
   ngOnInit(): void {
   }
@@ -17,7 +18,10 @@ export class RegisterComponent implements OnInit {
   register(e: Event) : void{
     e.preventDefault();
     console.log( this.registerUserData );
-    this.authService.registerUser( this.registerUserData ).subscribe( res => console.log(res) , err => console.log( err ) );
+    this.authService.registerUser( this.registerUserData ).subscribe( res => {
+      console.log(res)
+      this.router.navigate(['/login'])
+    } , err => console.log( err ) );
   }
 
 }

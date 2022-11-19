@@ -19,7 +19,10 @@ export class SpecialEventsComponent implements OnInit {
 
   ngOnInit(): void {
     this.eventsService.getSpecialEvents().subscribe(
-      (response) => (this.specialEvents = response.data),
+      (response) => {
+        console.log(response.data);
+        this.specialEvents = response.data
+      },
       (err) => {
         if( err.status === StatusCodes.UNAUTHORIZED ){
           this.router.navigate( ['/login'])
